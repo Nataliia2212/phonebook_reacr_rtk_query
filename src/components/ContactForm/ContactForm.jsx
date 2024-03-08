@@ -1,28 +1,26 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectContactsList } from '../../redux/contactsSlice';
 
 import css from './ContactForm.module.css';
-import { addNewContactThunk } from '../../redux/operations';
+import { useAddNewContactMutation } from '../../redux/contactsApi';
+import { useGetContactsQuery } from '../../redux/contactsApi';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const dispatch = useDispatch();
-
-  const contactsList = useSelector(selectContactsList);
+  const { data } = useGetContactsQuery();
+  const [addNewContact] = useAddNewContactMutation();
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (contactsList.every(contact => contact.name !== name)) {
+    if (data?.every(contact => contact.name !== name)) {
       const newContact = {
         name,
         number,
         createdAt: new Date().toLocaleDateString(),
       };
-      dispatch(addNewContactThunk(newContact));
+      addNewContact(newContact);
       setName('');
       setNumber('');
     } else {
