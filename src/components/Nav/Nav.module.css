@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px 20px;
+  background-color: rgb(0, 60, 255);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  align-items: center;
+}
+.outletWrapper {
+  padding: 0 15px;
+}
+
+.list {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
