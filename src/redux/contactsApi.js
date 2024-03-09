@@ -30,7 +30,6 @@ export const contactsApi = createApi({
         method: 'POST',
         body,
       }),
-      // providesTags: ['users'],
       invalidatesTags: ['contacts', 'users'],
     }),
 
@@ -39,13 +38,11 @@ export const contactsApi = createApi({
         url: 'users/logout',
         method: 'POST',
       }),
-      // providesTags: ['users'],
       invalidatesTags: ['users', 'contacts'],
     }),
 
     currentUser: builder.query({
       query: () => 'users/current',
-      // providesTags: ['users'],
       invalidatesTags: ['users', 'contacts'],
     }),
 
