@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ContactForm from 'components/ContactForm/ContactForm';
-import ContactsList from 'components/ContactsList/ContactsList';
-import Filter from 'components/Filter/Filter';
+import ContactForm from '../components/ContactForm/ContactForm';
+import Filter from '../components/Filter/Filter';
+import ContactsList from '../components/ContactsList/ContactsList';
 
 export const Contacts = () => {
   return (

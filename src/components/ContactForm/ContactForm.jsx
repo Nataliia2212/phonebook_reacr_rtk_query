@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
+import {
+  useAddNewContactMutation,
+  useGetContactsQuery,
+} from '../../redux/contactsApi';
 import css from './ContactForm.module.css';
-import { useAddNewContactMutation } from '../../redux/contactsApi';
-import { useGetContactsQuery } from '../../redux/contactsApi';
 
 export default function ContactForm() {
   const [name, setName] = useState('');

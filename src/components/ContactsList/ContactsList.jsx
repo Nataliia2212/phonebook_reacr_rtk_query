@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import ContactItem from 'components/ContactItem/ContactItem';
+import ContactItem from '../ContactItem/ContactItem';
 
 import { useGetContactsQuery } from '../../redux/contactsApi';
 import { selectFilter } from './../../redux/filterSlice';

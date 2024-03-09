@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 import s from './Form.module.css';
 
@@ -48,6 +49,16 @@ export const Form = ({ formType, onSubmit }) => {
       <button className={s.button}>
         {formType === 'register' ? 'Register' : 'Login'}
       </button>
+      <p className={s.link}>
+        {formType === 'register'
+          ? 'You already have account?'
+          : 'You do not have account?'}
+        {formType === 'register' ? (
+          <Link to="/login">Sign in!</Link>
+        ) : (
+          <Link to="/register">Sign up!</Link>
+        )}
+      </p>
     </form>
   );
 };
