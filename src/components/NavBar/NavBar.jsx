@@ -2,10 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { UserMenu } from '../UserMenu/UserMenu';
-import { useCurrentUserQuery } from '../../redux/contactsApi';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../../redux/auth';
 
 const NavBar = () => {
-  const { isSuccess } = useCurrentUserQuery();
+  const loggedIn = useSelector(selectAuth);
 
   return (
     <>
@@ -17,7 +18,7 @@ const NavBar = () => {
         <NavLink to="/contacts" className="link">
           Contacts
         </NavLink>
-        {!isSuccess && (
+        {!loggedIn && (
           <>
             <NavLink to="/register" className="link">
               Register
@@ -29,7 +30,7 @@ const NavBar = () => {
           </>
         )}
       </nav>
-      {isSuccess && <UserMenu />}
+      {loggedIn && <UserMenu />}
     </>
   );
 };

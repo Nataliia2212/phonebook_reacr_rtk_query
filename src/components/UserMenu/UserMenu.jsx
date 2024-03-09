@@ -5,8 +5,12 @@ import {
   useLogoutUserMutation,
   useCurrentUserQuery,
 } from '../../redux/contactsApi';
+import { authUser } from '../../redux/auth';
+import { useDispatch } from 'react-redux';
 
 export const UserMenu = () => {
+  const dispatch = useDispatch();
+
   const [logout] = useLogoutUserMutation();
   const { data, isLoading, isError } = useCurrentUserQuery();
   const navigate = useNavigate();
@@ -14,20 +18,18 @@ export const UserMenu = () => {
     return <h1>loading...</h1>;
   }
 
-  if (isError) {
-    return <h1>Error...</h1>;
+  if (!data) {
+    return;
   }
-
-  console.log(data);
   const handleLogout = () => {
+    dispatch(authUser());
+
     logout()
       .unwrap()
       .then(res => {
-        console.log(res);
         localStorage.removeItem('token');
         navigate('/login');
       });
-    navigate('/login');
   };
 
   return (

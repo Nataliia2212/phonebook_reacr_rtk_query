@@ -45,7 +45,8 @@ export const contactsApi = createApi({
 
     currentUser: builder.query({
       query: () => 'users/current',
-      providesTags: ['users'],
+      // providesTags: ['users'],
+      invalidatesTags: ['users', 'contacts'],
     }),
 
     getContacts: builder.query({

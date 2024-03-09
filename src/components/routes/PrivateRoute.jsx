@@ -1,13 +1,14 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-import { useCurrentUserQuery } from '../../redux/contactsApi';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../../redux/auth';
 
 export const PrivateRoute = ({ children }) => {
   const location = useLocation();
-  const { isSuccess } = useCurrentUserQuery();
+  const loggedIn = useSelector(selectAuth);
 
-  if (isSuccess) {
+  if (loggedIn) {
     return children;
   }
 
