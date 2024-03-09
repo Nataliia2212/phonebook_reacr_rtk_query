@@ -10,8 +10,11 @@ const authSlice = createSlice({
     loggedIn(state) {
       state.isLoggedIn = !state.isLoggedIn;
     },
-    loadingToggle(state) {
-      state.isLoading = !state.isLoading;
+    loadingFalse(state) {
+      state.isLoading = false;
+    },
+    loadingTrue(state) {
+      state.isLoading = true;
     },
   },
   selectors: {
@@ -22,5 +25,6 @@ const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 export const authUser = authSlice.actions.loggedIn;
-export const loadingToggle = authSlice.actions.loadingToggle;
+export const loadingFalse = authSlice.actions.loadingFalse;
+export const loadingTrue = authSlice.actions.loadingTrue;
 export const { selectAuth, selectIsLoading } = authSlice.selectors;

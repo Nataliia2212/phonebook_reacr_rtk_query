@@ -6,7 +6,7 @@ import ContactItem from '../ContactItem/ContactItem';
 import { useGetContactsQuery } from '../../redux/contactsApi';
 import { selectFilter } from './../../redux/filterSlice';
 import css from './ContactsList.module.css';
-import { loadingToggle } from '../../redux/auth';
+import { loadingFalse, loadingTrue } from '../../redux/auth';
 
 export default function ContactsList() {
   const { data = [], isLoading, isError, isSuccess } = useGetContactsQuery();
@@ -14,17 +14,17 @@ export default function ContactsList() {
   const dispatch = useDispatch();
 
   if (isLoading) {
-    dispatch(loadingToggle());
+    dispatch(loadingTrue());
     return <h1>loading...</h1>;
   }
 
   if (isError) {
-    dispatch(loadingToggle());
+    dispatch(loadingFalse());
     return <h1>Error...</h1>;
   }
 
   if (isSuccess) {
-    dispatch(loadingToggle());
+    dispatch(loadingFalse());
   }
   const getFilteredData = () => {
     return data?.filter(contact =>

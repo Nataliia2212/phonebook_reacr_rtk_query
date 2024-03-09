@@ -6,7 +6,7 @@ import {
   useLogoutUserMutation,
   useCurrentUserQuery,
 } from '../../redux/contactsApi';
-import { authUser, loadingToggle } from '../../redux/auth';
+import { authUser, loadingFalse, loadingTrue } from '../../redux/auth';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -15,30 +15,11 @@ export const UserMenu = () => {
   const { data, isLoading, isError, isSuccess } = useCurrentUserQuery();
   const navigate = useNavigate();
 
-  if (isLoading) {
-    dispatch(loadingToggle());
-    return <h1>loading...</h1>;
-  }
-
   if (!data) {
     return;
   }
   const handleLogout = () => {
     dispatch(authUser());
-
-    if (isLoading) {
-      dispatch(loadingToggle());
-      return <h1>loading...</h1>;
-    }
-
-    if (isError) {
-      dispatch(loadingToggle());
-      return <h1>Error...</h1>;
-    }
-
-    if (isSuccess) {
-      dispatch(loadingToggle());
-    }
 
     logout()
       .unwrap()
@@ -47,6 +28,20 @@ export const UserMenu = () => {
         navigate('/login');
       });
   };
+
+  if (isLoading) {
+    dispatch(loadingTrue());
+    return <h1>loading...</h1>;
+  }
+
+  if (isError) {
+    dispatch(loadingFalse());
+    return <h1>Error...</h1>;
+  }
+
+  if (isSuccess) {
+    dispatch(loadingFalse());
+  }
 
   return (
     <div>
