@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { resetUser, setUser } from './userSlice';
 
 export const contactsApi = createApi({
-  tagTypes: ['contacts', 'users'],
+  tagTypes: ['contacts', 'auth'],
   reducerPath: 'contactsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com/',
@@ -21,7 +22,10 @@ export const contactsApi = createApi({
         method: 'POST',
         body,
       }),
-      // providesTags: ['users'],
+      // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      //   dispatch(setUser((await queryFulfilled).data));
+      // },
+      // invalidatesTags: ['auth'],
     }),
 
     loginUser: builder.mutation({
@@ -30,7 +34,10 @@ export const contactsApi = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['contacts', 'users'],
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        dispatch(setUser((await queryFulfilled).data));
+      },
+      invalidatesTags: ['contacts', 'auth'],
     }),
 
     logoutUser: builder.mutation({
@@ -38,12 +45,15 @@ export const contactsApi = createApi({
         url: 'users/logout',
         method: 'POST',
       }),
-      invalidatesTags: ['users', 'contacts'],
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        dispatch(resetUser());
+      },
+      invalidatesTags: ['auth'],
     }),
 
     currentUser: builder.query({
       query: () => 'users/current',
-      invalidatesTags: ['users', 'contacts'],
+      // invalidatesTags: ['users', 'contacts'],
     }),
 
     getContacts: builder.query({

@@ -13,7 +13,7 @@ export const Register = () => {
     addNewUser(data)
       .unwrap()
       .then(res => {
-        navigate('/contacts');
+        navigate('/login');
       });
   };
 

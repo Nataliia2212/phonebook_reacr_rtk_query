@@ -8,15 +8,9 @@ import { Register } from './pages/Register';
 import { Contacts } from './pages/Contacts';
 import { PrivateRoute } from './components/routes/PrivateRoute';
 import { PublicRoute } from './components/routes/PublicRoute';
-import { useSelector } from 'react-redux';
-import { selectIsLoading } from './redux/auth';
-import { Preloader } from './components/Preloader/Preloader';
 
 export default function App() {
-  const isLoading = useSelector(selectIsLoading);
-  return isLoading ? (
-    <Preloader />
-  ) : (
+  return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>

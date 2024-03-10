@@ -6,21 +6,18 @@ import {
   useLogoutUserMutation,
   useCurrentUserQuery,
 } from '../../redux/contactsApi';
-import { authUser, loadingFalse, loadingTrue } from '../../redux/auth';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
 
   const [logout] = useLogoutUserMutation();
-  const { data, isLoading, isError, isSuccess } = useCurrentUserQuery();
+  const { data } = useCurrentUserQuery();
   const navigate = useNavigate();
 
   if (!data) {
     return;
   }
   const handleLogout = () => {
-    dispatch(authUser());
-
     logout()
       .unwrap()
       .then(res => {
@@ -28,20 +25,6 @@ export const UserMenu = () => {
         navigate('/login');
       });
   };
-
-  if (isLoading) {
-    dispatch(loadingTrue());
-    return <h1>loading...</h1>;
-  }
-
-  if (isError) {
-    dispatch(loadingFalse());
-    return <h1>Error...</h1>;
-  }
-
-  if (isSuccess) {
-    dispatch(loadingFalse());
-  }
 
   return (
     <div>
