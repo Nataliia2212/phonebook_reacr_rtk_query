@@ -13,8 +13,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, { payload }) {
-      console.log(state);
-      console.log(payload);
       state.user = { ...state.user, ...payload.user };
       state.token = payload.token;
       state.isLoggedIn = true;
@@ -22,14 +20,21 @@ const userSlice = createSlice({
     resetUser(state) {
       return initialState;
     },
+    isLoading(state, { payload }) {
+      console.log(state);
+      console.log(payload);
+      state.isLoading = true;
+    },
   },
   selectors: {
     selectIsLoggedIn: state => state.isLoggedIn,
     selectIsLoading: state => state.isLoading,
+    selectToken: state => state.token,
   },
 });
 
 export const userReducer = userSlice.reducer;
 export const authUser = userSlice.actions.loggedIn;
-export const { setUser, loggedIn, resetUser, updateUser } = userSlice.actions;
-export const { selectIsLoggedIn, selectIsLoading } = userSlice.selectors;
+export const { setUser, loggedIn, resetUser, isLoading } = userSlice.actions;
+export const { selectIsLoggedIn, selectIsLoading, selectToken } =
+  userSlice.selectors;
