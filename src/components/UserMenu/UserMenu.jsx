@@ -5,6 +5,7 @@ import {
   useLogoutUserMutation,
   useCurrentUserQuery,
 } from '../../redux/contactsApi';
+import s from './UserMenu.module.css';
 
 export const UserMenu = () => {
   const [logout] = useLogoutUserMutation();
@@ -25,9 +26,11 @@ export const UserMenu = () => {
   };
 
   return (
-    <div>
-      <p>{data?.name}</p>
-      <p>{data?.email}</p>
+    <div className={s.wraper}>
+      <div>
+        <p className={s.text}>{data?.name}</p>
+        <p className={s.text}>{data?.email}</p>
+      </div>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );

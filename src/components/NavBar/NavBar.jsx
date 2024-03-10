@@ -4,13 +4,14 @@ import { NavLink } from 'react-router-dom';
 import { UserMenu } from '../UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/userSlice';
+import s from './NavBar.module.css';
 
 const NavBar = () => {
   const loggedIn = useSelector(selectIsLoggedIn);
 
   return (
     <>
-      <nav>
+      <nav className={s.wrapper}>
         <NavLink to="/" className="link">
           Phonebook
         </NavLink>
