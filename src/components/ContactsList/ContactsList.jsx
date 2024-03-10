@@ -8,7 +8,7 @@ import { selectFilter } from './../../redux/filterSlice';
 import css from './ContactsList.module.css';
 
 export default function ContactsList() {
-  const { data = [], isLoading, isError, isSuccess } = useGetContactsQuery();
+  const { data } = useGetContactsQuery();
   const filter = useSelector(selectFilter);
 
   const getFilteredData = () => {

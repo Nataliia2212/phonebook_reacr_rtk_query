@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -8,9 +7,8 @@ import {
 } from '../../redux/contactsApi';
 
 export const UserMenu = () => {
-  const dispatch = useDispatch();
-
   const [logout] = useLogoutUserMutation();
+
   const { data } = useCurrentUserQuery();
   const navigate = useNavigate();
 

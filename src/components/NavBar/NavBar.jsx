@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { UserMenu } from '../UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
-import { selectAuth, selectIsLoggedIn } from '../../redux/userSlice';
+import { selectIsLoggedIn } from '../../redux/userSlice';
 
 const NavBar = () => {
   const loggedIn = useSelector(selectIsLoggedIn);
