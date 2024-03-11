@@ -11,6 +11,7 @@ import { PublicRoute } from './components/routes/PublicRoute';
 import { useSelector } from 'react-redux';
 import { selectIsRefresh, selectToken } from './redux/userSlice';
 import { useCurrentUserQuery } from './redux/contactsApi';
+import { Preloader } from './components/Preloader/Preloader';
 
 export default function App() {
   const token = useSelector(selectToken);
@@ -20,7 +21,7 @@ export default function App() {
   useCurrentUserQuery('', { skip });
 
   return isRefresh ? (
-    <h1>loading</h1>
+    <Preloader />
   ) : (
     <>
       <Routes>

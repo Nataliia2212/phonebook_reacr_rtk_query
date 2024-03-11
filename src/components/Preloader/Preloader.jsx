@@ -1,17 +1,17 @@
 import React from 'react';
-import { Triangle } from 'react-loader-spinner';
+import { Hourglass } from 'react-loader-spinner';
 import s from './Preloader.module.css';
 export const Preloader = () => {
   return (
     <div className={s.wrapper}>
-      <Triangle
+      <Hourglass
         visible={true}
-        height="380"
-        width="380"
-        color="#0400ea"
-        ariaLabel="triangle-loading"
+        height="80"
+        width="80"
+        ariaLabel="hourglass-loading"
         wrapperStyle={{}}
         wrapperClass=""
+        colors={['#306cce', '#72a1ed']}
       />
       <h1>Loading...</h1>
     </div>
