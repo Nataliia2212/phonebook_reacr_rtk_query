@@ -1,5 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { resetUser, setUser } from './userSlice';
+import {
+  refreshEnd,
+  refreshStart,
+  refreshUser,
+  resetUser,
+  setUser,
+} from './userSlice';
 
 export const contactsApi = createApi({
   tagTypes: ['contacts', 'auth'],
@@ -49,7 +55,21 @@ export const contactsApi = createApi({
 
     currentUser: builder.query({
       query: () => 'users/current',
-      // invalidatesTags: ['users', 'contacts'],
+      prepareHeaders: (headers, { getState }) => {
+        const token = getState().auth.token;
+        if (token) {
+          headers.set('authorization', `Bearer ${token}`);
+        }
+        return headers;
+      },
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          dispatch(refreshStart());
+          dispatch(refreshUser((await queryFulfilled).data));
+        } catch (error) {
+          dispatch(refreshEnd());
+        }
+      },
     }),
 
     getContacts: builder.query({

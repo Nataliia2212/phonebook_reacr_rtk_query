@@ -1,21 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  useLogoutUserMutation,
-  useCurrentUserQuery,
-} from '../../redux/contactsApi';
+import { useLogoutUserMutation } from '../../redux/contactsApi';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/userSlice';
 import s from './UserMenu.module.css';
 
 export const UserMenu = () => {
   const [logout] = useLogoutUserMutation();
+  const user = useSelector(selectUser);
 
-  const { data } = useCurrentUserQuery();
   const navigate = useNavigate();
 
-  if (!data) {
-    return;
-  }
   const handleLogout = () => {
     logout()
       .unwrap()
@@ -27,10 +23,7 @@ export const UserMenu = () => {
 
   return (
     <div className={s.wraper}>
-      <div>
-        <p className={s.text}>{data?.name}</p>
-        <p className={s.text}>{data?.email}</p>
-      </div>
+      <div>{user.email}</div>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );

@@ -8,9 +8,20 @@ import { Register } from './pages/Register';
 import { Contacts } from './pages/Contacts';
 import { PrivateRoute } from './components/routes/PrivateRoute';
 import { PublicRoute } from './components/routes/PublicRoute';
+import { useSelector } from 'react-redux';
+import { selectIsRefresh, selectToken } from './redux/userSlice';
+import { useCurrentUserQuery } from './redux/contactsApi';
 
 export default function App() {
-  return (
+  const token = useSelector(selectToken);
+  const skip = !token;
+  const isRefresh = useSelector(selectIsRefresh);
+
+  useCurrentUserQuery('', { skip });
+
+  return isRefresh ? (
+    <h1>loading</h1>
+  ) : (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>

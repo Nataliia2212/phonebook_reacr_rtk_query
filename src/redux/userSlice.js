@@ -9,20 +9,31 @@ const initialState = {
 };
 
 const userSlice = createSlice({
-  name: 'user',
+  name: 'auth',
   initialState,
   reducers: {
     setUser(state, { payload }) {
-      state.user = { ...state.user, ...payload.user };
+      state.user.name = payload.user.name;
+      state.user.email = payload.user.email;
       state.token = payload.token;
       state.isLoggedIn = true;
+    },
+    refreshUser(state, { payload }) {
+      state.user.name = payload.name;
+      state.user.email = payload.email;
+      state.isLoggedIn = true;
+      state.isRefreshing = false;
+    },
+    refreshStart(state, { payload }) {
+      state.isRefreshing = true;
+    },
+    refreshEnd(state, { payload }) {
+      state.isRefreshing = false;
     },
     resetUser(state) {
       return initialState;
     },
     isLoading(state, { payload }) {
-      console.log(state);
-      console.log(payload);
       state.isLoading = true;
     },
   },
@@ -30,11 +41,26 @@ const userSlice = createSlice({
     selectIsLoggedIn: state => state.isLoggedIn,
     selectIsLoading: state => state.isLoading,
     selectToken: state => state.token,
+    selectIsRefresh: state => state.isRefreshing,
+    selectUser: state => state.user,
   },
 });
 
 export const userReducer = userSlice.reducer;
 export const authUser = userSlice.actions.loggedIn;
-export const { setUser, loggedIn, resetUser, isLoading } = userSlice.actions;
-export const { selectIsLoggedIn, selectIsLoading, selectToken } =
-  userSlice.selectors;
+export const {
+  setUser,
+  loggedIn,
+  resetUser,
+  isLoading,
+  refreshUser,
+  refreshStart,
+  refreshEnd,
+} = userSlice.actions;
+export const {
+  selectUser,
+  selectIsLoggedIn,
+  selectIsLoading,
+  selectToken,
+  selectIsRefresh,
+} = userSlice.selectors;
